@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Débora ❤️ Anderson</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a25;
+            --text-primary: #f0e6e6;
+            --text-secondary: #b8a9a9;
+            --accent-rose: #e8556d;
+            --accent-rose-light: #f2879a;
+            --accent-gold: #d4a853;
+            --accent-gold-light: #e8c97a;
+            --gradient-rose: linear-gradient(135deg, #e8556d, #c44569);
+            --gradient-gold: linear-gradient(135deg, #d4a853, #b8860b);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== PARTICLES BACKGROUND ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 85, 109, 0.15);
+            transition: transform 0.3s ease;
+        }
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-rose);
+            transition: width 0.3s ease;
+        }
+        .nav a:hover {
+            color: var(--accent-rose-light);
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 85, 109, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+        .hero-heart {
+            font-size: 3rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 20px rgba(232, 85, 109, 0.5));
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 300;
+            line-height: 1.3;
+            max-width: 800px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-rose-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        .scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+        .scroll-arrow {
+            width: 24px;
+            height: 24px;
+            border-right: 1.5px solid var(--accent-rose);
+            border-bottom: 1.5px solid var(--accent-rose);
+            transform: rotate(45deg);
+            opacity: 0.5;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* ===== SECTIONS GENERAL ===== */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .section-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gradient-rose);
+            margin: 0 auto 3rem;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            font-style: italic;
+        }
+        .body-text {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* ===== NOSSA HISTÓRIA ===== */
+        #historia {
+            background: linear-gradient(180deg, transparent 0%, rgba(26, 26, 37, 0.5) 50%, transparent 100%);
+            border-radius: 20px;
+        }
+        #historia .body-text {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== POR QUE VOCÊ ===== */
+        .reasons-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .reason-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(232, 85, 109, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--gradient-rose);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .reason-card:hover {
+            border-color: rgba(232, 85, 109, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 10px 40px rgba(232, 85, 109, 0.1);
+        }
+        .reason-card:hover::before {
+            opacity: 1;
+        }
+        .reason-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent-rose);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .reason-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .reason-card p {
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.9;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, opacity 0.4s ease;
+            opacity: 0;
+        }
+        .reason-card.expanded p {
+            max-height: 300px;
+            opacity: 1;
+        }
+        .reason-card .click-hint {
+            font-size: 0.75rem;
+            color: var(--accent-rose);
+            opacity: 0.5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+            transition: opacity 0.3s ease;
+        }
+        .reason-card.expanded .click-hint {
+            opacity: 0;
+        }
+
+        /* ===== MOMENTOS (Timeline) ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: linear-gradient(180deg, var(--accent-rose), var(--accent-gold), var(--accent-rose-light));
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-left: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-rose);
+            box-shadow: 0 0 20px rgba(232, 85, 109, 0.4);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 10px rgba(232, 85, 109, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(232, 85, 109, 0.6); }
+        }
+        .timeline-label {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== PROMESSAS ===== */
+        #promessas {
+            text-align: center;
+        }
+        .promises-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .promise {
+            padding: 2rem;
+            border: 1px solid rgba(212, 168, 83, 0.15);
+            border-radius: 12px;
+            background: rgba(212, 168, 83, 0.03);
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+        .promise:hover {
+            border-color: rgba(212, 168, 83, 0.4);
+            background: rgba(212, 168, 83, 0.08);
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(212, 168, 83, 0.1);
+        }
+        .promise p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+        .promise-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* ===== O PEDIDO ===== */
+        #pedido {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        #pedido .body-text {
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .proposal-question {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--accent-rose-light), var(--accent-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: revealQuestion 2s ease forwards;
+            animation-delay: 0.5s;
+        }
+        @keyframes revealQuestion {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .proposal-signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== CTA BUTTON ===== */
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .cta-button {
+            position: relative;
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: white;
+            background: var(--gradient-rose);
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            animation: pulse-btn 2s ease-in-out infinite;
+        }
+        @keyframes pulse-btn {
+            0%, 100% { box-shadow: 0 0 20px rgba(232, 85, 109, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(232, 85, 109, 0.5), 0 0 80px rgba(232, 85, 109, 0.2); }
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+        .cta-microcopy {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            font-style: italic;
+        }
+
+        /* ===== YES SCREEN ===== */
+        .yes-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            background: var(--bg-primary);
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .yes-screen.show {
+            display: flex;
+            opacity: 1;
+        }
+        .yes-screen h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            background: linear-gradient(135deg, var(--accent-rose-light), var(--accent-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+        .yes-screen p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 500px;
+            line-height: 1.9;
+            margin-bottom: 1rem;
+        }
+        .yes-screen .final-detail {
+            color: var(--accent-rose-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== CONFETTI CANVAS ===== */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        /* ===== MUSIC TOGGLE ===== */
+        .music-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 200;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(232, 85, 109, 0.3);
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        .music-toggle:hover {
+            border-color: var(--accent-rose);
+            box-shadow: 0 0 20px rgba(232, 85, 109, 0.2);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav {
+                gap: 0.8rem;
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+            }
+            .nav a {
+                font-size: 0.65rem;
+            }
+            section {
+                padding: 4rem 1.5rem;
+            }
+            .reason-card {
+                padding: 1.8rem;
+            }
+            .timeline {
+                padding-left: 30px;
+            }
+        }
+
+        /* ===== GLOW EFFECT ON SECTIONS ===== */
+        .glow-rose {
+            text-shadow: 0 0 40px rgba(232, 85, 109, 0.15);
+        }
+        .glow-gold {
+            text-shadow: 0 0 40px rgba(212, 168, 83, 0.15);
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-heart {
+            font-size: 4rem;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+        .loading-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-top: 1.5rem;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div class="loading-screen" id="loading">
+        <div class="loading-heart">💍</div>
+        <div class="loading-text">Preparando algo especial...</div>
+    </div>
+
+    <!-- PARTICLES -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- CONFETTI -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <a href="#hero">Início</a>
+        <a href="#historia">Nossa História</a>
+        <a href="#porque">Por Que Você</a>
+        <a href="#momentos">Momentos</a>
+        <a href="#promessas">Promessas</a>
+        <a href="#pedido">O Pedido</a>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-heart">❤️</div>
+        <h1>Débora, tudo o que eu sou começou a fazer sentido no dia em que te encontrei.</h1>
+        <p>Esta página existe por um único motivo. E eu preciso que você leia até o final.</p>
+        <div class="scroll-indicator" onclick="document.getElementById('historia').scrollIntoView({behavior:'smooth'})">
+            <span>Rola para baixo... com calma</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ===== NOSSA HISTÓRIA ===== -->
+    <section id="historia">
+        <div class="section-divider reveal"></div>
+        <h2 class="section-title reveal glow-rose">Existem bilhões de pessoas no mundo.<br>E o universo conspirou para que eu encontrasse exatamente você.</h2>
+        <div class="body-text reveal">
+            <p>Eu não sei explicar com precisão o momento em que tudo mudou. Talvez tenha sido o primeiro olhar. Talvez tenha sido a primeira risada juntos — aquela risada que faz o peito doer de tão leve que a gente se sente.</p>
+            <br>
+            <p>O que eu sei é que, antes de você, eu vivia. Depois de você, eu comecei a <em>viver de verdade</em>.</p>
+            <br>
+            <p>Você chegou sem pedir licença e transformou o meu mundo inteiro. Transformou o silêncio em conversa, a rotina em aventura, a solidão em lar. Você me ensinou que amar não é só um sentimento — é uma decisão que a gente toma todos os dias, e que se torna mais fácil quando se olha para a pessoa certa.</p>
+            <br>
+            <p>E Débora, <strong>você é a pessoa certa.</strong></p>
+            <br>
+            <p>Não porque você seja perfeita. Mas porque até as suas imperfeições me fazem querer ficar. Porque o seu jeito de ser me faz querer ser melhor. Porque quando estou com você, eu finalmente entendo o que os poetas tentavam dizer.</p>
+        </div>
+    </section>
+
+    <!-- ===== POR QUE VOCÊ ===== -->
+    <section id="porque">
+        <div class="section-divider reveal"></div>
+        <h2 class="section-title reveal glow-rose">Cinco verdades que eu carrego no peito</h2>
+        <p class="section-subtitle reveal">Coisas que eu talvez nunca tenha dito em voz alta, mas que sinto todos os dias.</p>
+
+        <div class="reasons-grid">
+            <div class="reason-card reveal" onclick="this.classList.toggle('expanded')">
+                <div class="reason-number">01</div>
+                <h3>Porque você me vê como eu sou — e escolhe ficar.</h3>
+                <p>Você conhece os meus medos, as minhas falhas, os dias em que eu não sou a minha melhor versão. E mesmo assim, você está lá. Não com julgamento, mas com aquele olhar que diz: "Eu estou aqui. E não vou a lugar nenhum." Isso, Débora, é o tipo de amor que não se encontra — se reconhece.</p>
+                <div class="click-hint">clique para ler</div>
+            </div>
+
+            <div class="reason-card reveal" onclick="this.classList.toggle('expanded')">
+                <div class="reason-number">02</div>
+                <h3>Porque o som da sua risada é a minha canção preferida.</h3>
+                <p>Existe algo na forma como você ri que reorganiza o mundo ao meu redor. É como se, por um instante, nada mais importasse. Nem problemas, nem prazos, nem preocupações. Só aquele som. Só você. E eu daria qualquer coisa para ouvir essa canção pelo resto da minha vida.</p>
+                <div class="click-hint">clique para ler</div>
+            </div>
+
+            <div class="reason-card reveal" onclick="this.classList.toggle('expanded')">
+                <div class="reason-number">03</div>
+                <h3>Porque você transforma coisas simples em memórias eternas.</h3>
+                <p>Um café na manhã de domingo. Um filme no sofá. Uma conversa no carro. Com qualquer outra pessoa, seriam momentos comuns. Com você, se tornam as melhores memórias que eu tenho. Você tem esse dom raro de transformar o ordinário em extraordinário, só por estar presente.</p>
+                <div class="click-hint">clique para ler</div>
+            </div>
+
+            <div class="reason-card reveal" onclick="this.classList.toggle('expanded')">
+                <div class="reason-number">04</div>
+                <h3>Porque você me faz querer ser o homem que você merece.</h3>
+                <p>Antes de você, eu me acomodava. Desde que você chegou, eu acordo todos os dias com vontade de ser mais, de ir além, de construir algo que seja digno do que você me dá. Você não me cobra nada, mas o seu amor me inspira a tudo.</p>
+                <div class="click-hint">clique para ler</div>
+            </div>
+
+            <div class="reason-card reveal" onclick="this.classList.toggle('expanded')">
+                <div class="reason-number">05</div>
+                <h3>Porque sem você, o futuro não faz sentido.</h3>
+                <p>Eu já tentei imaginar o amanhã sem você. E simplesmente... não funciona. É como um mapa sem destino, um céu sem estrelas, uma história sem final. Você não é apenas parte do meu futuro, Débora. Você é o motivo pelo qual eu quero ter um.</p>
+                <div class="click-hint">clique para ler</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MOMENTOS ===== -->
+    <section id="momentos">
+        <div class="section-divider reveal"></div>
+        <h2 class="section-title reveal glow-gold">O tempo só importa quando se tem com quem dividi-lo</h2>
+        <p class="section-subtitle reveal">Ontem, hoje e todos os amanhãs.</p>
+
+        <div class="timeline">
+            <div class="timeline-item reveal-left">
+                <div class="timeline-label">Passado</div>
+                <h3>De onde viemos</h3>
+                <p class="body-text">Olho para trás e vejo um caminho cheio de primeiras vezes. O primeiro toque, a primeira viagem, a primeira briga que nos fez mais fortes, o primeiro "eu te amo" que ficou preso na garganta antes de finalmente sair. Cada um desses momentos é uma pedra no alicerce do que a gente construiu. E eu não mudaria nenhum deles.</p>
+            </div>
+
+            <div class="timeline-item reveal-left">
+                <div class="timeline-label">Presente</div>
+                <h3>Onde estamos</h3>
+                <p class="body-text">Aqui. Agora. Neste exato segundo, você está lendo estas palavras, e meu coração está disparado mesmo sem eu estar na sua frente. Porque este é o momento mais importante da minha vida. Este é o momento em que eu paro de apenas pensar no futuro e decido construí-lo — com você.</p>
+            </div>
+
+            <div class="timeline-item reveal-left">
+                <div class="timeline-label">Futuro</div>
+                <h3>Para onde vamos</h3>
+                <p class="body-text">Eu vejo manhãs lentas ao seu lado. Vejo risadas em uma cozinha bagunçada. Vejo viagens para lugares que a gente ainda nem sabe que existem. Vejo cabelos brancos e mãos enrugadas que ainda se procuram debaixo das cobertas. Vejo uma vida inteira que só vale a pena se for ao seu lado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROMESSAS ===== -->
+    <section id="promessas">
+        <div class="section-divider reveal"></div>
+        <h2 class="section-title reveal glow-gold">Eu não posso te prometer o mundo.<br>Mas posso te prometer o que realmente importa.</h2>
+
+        <div class="promises-container">
+            <div class="promise reveal">
+                <span class="promise-icon">🤝</span>
+                <p>"Eu prometo estar lá nos dias em que o mundo pesar demais — e dividir esse peso com você até ele ficar leve."</p>
+            </div>
+            <div class="promise reveal">
+                <span class="promise-icon">💫</span>
+                <p>"Eu prometo nunca parar de te escolher. Não só nos dias bonitos, mas principalmente nos dias difíceis."</p>
+            </div>
+            <div class="promise reveal">
+                <span class="promise-icon">😊</span>
+                <p>"Eu prometo rir com você das coisas bobas, chorar com você quando for preciso, e segurar a sua mão no silêncio, quando palavras não forem suficientes."</p>
+            </div>
+            <div class="promise reveal">
+                <span class="promise-icon">🏠</span>
+                <p>"Eu prometo construir com você um lar que não é feito de paredes, mas de segurança, respeito e aquele tipo de amor que não precisa gritar para ser ouvido."</p>
+            </div>
+            <div class="promise reveal">
+                <span class="promise-icon">♾️</span>
+                <p>"Eu prometo que, daqui a vinte, trinta, cinquenta anos, quando você olhar para mim e perguntar se eu ainda te amo, a minha resposta vai ser a mesma de hoje: mais do que ontem, e menos do que amanhã."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== O PEDIDO ===== -->
+    <section id="pedido">
+        <div class="section-divider reveal"></div>
+        <h2 class="section-title reveal" style="margin-bottom: 2rem;">Débora...</h2>
+        <div class="body-text reveal">
+            <p>Se você chegou até aqui, então já sabe o que eu sinto. Mas eu preciso dizer com todas as letras, porque você merece ouvir. Você merece ler. Você merece sentir.</p>
+            <br>
+            <p>Desde que você entrou na minha vida, eu descobri que existem tipos de felicidade que eu nem sabia que eram possíveis. Descobri que o amor de verdade não é só borboletas no estômago — é <em>paz</em>. É saber que, não importa o que aconteça, existe uma pessoa que é o seu lugar seguro no mundo.</p>
+            <br>
+            <p><strong>Você é o meu lugar seguro, Débora.</strong></p>
+            <br>
+            <p>E eu quero ser o seu. Para sempre.</p>
+            <br>
+            <p>Por isso, com o coração mais cheio do que as palavras conseguem expressar, eu te pergunto:</p>
+        </div>
+
+        <div class="proposal-question reveal">Você aceita se casar comigo?</div>
+        <div class="proposal-signature reveal">Com todo o meu amor, de hoje e de sempre,<br><strong>Anderson</strong></div>
+
+        <div class="cta-container reveal">
+            <button class="cta-button" id="yesButton" onclick="showYesScreen()">
+                Sim, eu aceito! 💍
+            </button>
+            <span class="cta-microcopy">(Você não imagina o quanto eu estou nervoso esperando sua resposta)</span>
+        </div>
+    </section>
+
+    <!-- ===== YES SCREEN ===== -->
+    <div class="yes-screen" id="yesScreen">
+        <h2>Você disse sim.</h2>
+        <p>E com essa única palavra, você acabou de tornar o Anderson o homem mais feliz do mundo.</p>
+        <p>Esta é apenas a primeira página da nossa história. As melhores estão por vir.</p>
+        <div class="final-detail">Agora me liga. Eu preciso ouvir a sua voz. ❤️</div>
+    </div>
+
+    <script>
+        // ===== LOADING SCREEN =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                loading.classList.add('fade-out');
+                setTimeout(() => loading.style.display = 'none', 1000);
+            }, 2000);
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== PARTICLES =====
+        const particlesCanvas = document.getElementById('particles-canvas');
+        const pCtx = particlesCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeParticles() {
+            particlesCanvas.width = window.innerWidth;
+            particlesCanvas.height = window.innerHeight;
+        }
+        resizeParticles();
+        window.addEventListener('resize', resizeParticles);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * particlesCanvas.width;
+                this.y = Math.random() * particlesCanvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.color = Math.random() > 0.5 ? '232, 85, 109' : '212, 168, 83';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > particlesCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > particlesCanvas.height) this.speedY *= -1;
+            }
+            draw() {
+                pCtx.beginPath();
+                pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                pCtx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+                pCtx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            pCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== CONFETTI =====
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const cCtx = confettiCanvas.getContext('2d');
+        let confettiPieces = [];
+        let confettiActive = false;
+
+        function resizeConfetti() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        resizeConfetti();
+        window.addEventListener('resize', resizeConfetti);
+
+        class Confetti {
+            constructor() {
+                this.x = Math.random() * confettiCanvas.width;
+                this.y = -20;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = (Math.random() - 0.5) * 4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 10;
+                this.opacity = 1;
+                const colors = ['#e8556d', '#f2879a', '#d4a853', '#e8c97a', '#fff', '#ff6b8a', '#ffd700'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.shape = Math.random() > 0.5 ? 'rect' : 'circle';
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+                this.speedX *= 0.99;
+                this.opacity -= 0.003;
+            }
+            draw() {
+                cCtx.save();
+                cCtx.translate(this.x, this.y);
+                cCtx.rotate((this.rotation * Math.PI) / 180);
+                cCtx.globalAlpha = Math.max(0, this.opacity);
+                cCtx.fillStyle = this.color;
+                if (this.shape === 'rect') {
+                    cCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
+                } else {
+                    cCtx.beginPath();
+                    cCtx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                    cCtx.fill();
+                }
+                cCtx.restore();
+            }
+        }
+
+        function launchConfetti() {
+            confettiActive = true;
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => confettiPieces.push(new Confetti()), i * 15);
+            }
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            if (!confettiActive) return;
+            cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            confettiPieces = confettiPieces.filter(c => c.opacity > 0 && c.y < confettiCanvas.height + 50);
+            confettiPieces.forEach(c => {
+                c.update();
+                c.draw();
+            });
+            if (confettiPieces.length > 0) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                confettiActive = false;
+            }
+        }
+
+        // ===== FLOATING HEARTS ON CLICK =====
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.cta-button') || e.target.closest('.yes-screen')) return;
+            const heart = document.createElement('div');
+            heart.innerHTML = ['❤️', '💕', '💖', '✨', '💗'][Math.floor(Math.random() * 5)];
+            heart.style.cssText = `
+                position: fixed;
+                left: ${e.clientX - 10}px;
+                top: ${e.clientY - 10}px;
+                font-size: 1.5rem;
+                pointer-events: none;
+                z-index: 500;
+                animation: floatUp 1.5s ease forwards;
+            `;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1500);
+        });
+
+        // Add float animation
+        const floatStyle = document.createElement('style');
+        floatStyle.textContent = `
+            @keyframes floatUp {
+                0% { opacity: 1; transform: translateY(0) scale(1); }
+                100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+            }
+        `;
+        document.head.appendChild(floatStyle);
+
+        // ===== YES BUTTON =====
+        function showYesScreen() {
+            const yesScreen = document.getElementById('yesScreen');
+            yesScreen.classList.add('show');
+            launchConfetti();
+
+            // Continuous confetti waves
+            let waves = 0;
+            const confettiInterval = setInterval(() => {
+                launchConfetti();
+                waves++;
+                if (waves >= 5) clearInterval(confettiInterval);
+            }, 2500);
+        }
+
+        // ===== SMOOTH NAV HIGHLIGHT =====
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.style.color = link.getAttribute('href') === '#' + current
+                    ? 'var(--accent-rose-light)'
+                    : 'var(--text-secondary)';
+            });
+        });
+
+        // ===== TYPEWRITER FOR PROPOSAL (when visible) =====
+        const proposalSection = document.getElementById('pedido');
+        let proposalAnimated = false;
+        const proposalObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !proposalAnimated) {
+                    proposalAnimated = true;
+                    const question = document.querySelector('.proposal-question');
+                    question.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.3 });
+        proposalObserver.observe(proposalSection);
+    </script>
+
+</body>
+</html>
